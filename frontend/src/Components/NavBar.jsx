@@ -33,7 +33,7 @@ const NavBar = () => {
       className={
         isMenuOpen
           ? "flex absolute flex-col items-center justify-around h-screen w-screen bg-gradient-to-t from-[#FFB8B8] to-[#1E1E1E]"
-          : "flex  absolute items-center justify-between  h-[50px] w-screen "
+          : "flex  absolute items-center justify-around  h-[50px] w-screen "
       }
     >
       {!isMenuOpen && (
