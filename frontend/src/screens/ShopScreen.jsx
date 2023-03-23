@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AiOutlineFilter, AiOutlineLoading3Quarters } from "react-icons/ai";
 import { BsCartPlus, BsChevronLeft } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
+import { StoreContext } from "../store";
 import axios from "axios";
 
 const prices = [
@@ -74,6 +75,29 @@ const ShopScreen = () => {
       pathname: "/search",
       search: `?category=${filterCategory}&query=${filterQuery}&price=${filterPrice}&rating=${filterRating}`,
     };
+  };
+
+  const { state, dispatch: ctxDispatch } = useContext(StoreContext);
+
+  const {
+    cart: { cartItems },
+  } = state;
+
+  const addToCartHandler = async (item) => {
+    const existItem = cartItems.find((x) => x._id === item._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+
+    const { data } = await axios.get(`/api/products/${item._id}`);
+    if (data.countInStock < quantity) {
+      window.alert("Sorry. Product is out of stock");
+      return;
+    }
+    ctxDispatch({
+      type: "ADD_TO_CART",
+      payload: { ...item, quantity },
+    });
+
+    console.log(cartItems);
   };
 
   useEffect(() => {
@@ -196,7 +220,7 @@ const ShopScreen = () => {
               <div className="flex justify-items-center items-center">
                 <p className="text-[#7a7a7a] pr-3">${p.price}</p>
                 <BsCartPlus
-                  //   onClick={() => addToCartHandler(x)}
+                  onClick={() => addToCartHandler(p)}
                   key={p._id}
                   size={25}
                   cursor="pointer"
