@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./Components/NavBar";
 import HomeScreen from "./screens/HomeScreen";
 import ShopScreen from "./screens/ShopScreen";
+import CartScreen from "./screens/CartScreen";
 function App() {
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-t from-[#FFB8B8] to-[#1E1E1E]">
@@ -12,6 +13,7 @@ function App() {
           <Route path="/" element={<HomeScreen />} />
           <Route path="/shop" element={<ShopScreen />} />
           <Route path="/search" element={<ShopScreen />} />
+          <Route path="/cart" element={<CartScreen />} />
         </Routes>
       </Router>
     </div>

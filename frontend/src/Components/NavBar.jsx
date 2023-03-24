@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   AiOutlineShoppingCart,
   AiOutlineMenu,
@@ -28,6 +28,7 @@ const links = [
 const NavBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  const navigate = useNavigate();
   return (
     <div
       className={
@@ -38,7 +39,12 @@ const NavBar = () => {
     >
       {!isMenuOpen && (
         <>
-          <AiOutlineShoppingCart cursor={"pointer"} color="#f1f1f1" size={25} />
+          <AiOutlineShoppingCart
+            onClick={() => navigate("/cart")}
+            cursor={"pointer"}
+            color="#f1f1f1"
+            size={25}
+          />
           <p className="text-xl text-gray-100 font-semibold">Ecommerce Shoes</p>
           <AiOutlineMenu
             cursor={"pointer"}
