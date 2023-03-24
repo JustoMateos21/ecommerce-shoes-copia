@@ -108,7 +108,7 @@ const CartScreen = () => {
           <p className="pb-2">Total ${total}</p>
           <Link
             className="rounded-lg font-semibold bg-slate-400 flex w-40 h-10 p-1 items-center justify-center text-[#3f3f3f]"
-            to={"/checkout"}
+            to={"/delivery"}
           >
             Proceed To Checkout
           </Link>
