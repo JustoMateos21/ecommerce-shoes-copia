@@ -1,7 +1,7 @@
 import express from "express";
 import User from "../models/userModel.js";
 import expressAsyncHandler from "express-async-handler";
-const userRouter = express.router();
+const userRouter = express.Router();
 
 userRouter.post("/signin", (req, res) => {
   expressAsyncHandler(async (req, res) => {

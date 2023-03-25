@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import seedRouter from "./routes/seedRouter.js";
 import productRouter from "./routes/productsRouter.js";
 import userRouter from "./routes/userRouter.js";
+import orderRouter from "./routes/orderRouter.js";
 const app = express();
 
 dotenv.config();
@@ -27,7 +28,8 @@ app.get("/api", (req, res) => {
 
 app.use("/api/seed", seedRouter);
 app.use("/api/products", productRouter);
-app.use("/api/user", usertRouter);
+app.use("/api/user", userRouter);
+app.use("/api/orders", orderRouter);
 
 app.use(function (req, res, next) {
   res
