@@ -9,6 +9,8 @@ import DeliveryScreen from "./screens/DeliveryScreen";
 import SignUpScreen from "./screens/SignUpScreen";
 import SignInScreen from "./screens/SignInScreen";
 import ProtectedRoutes from "./Components/ProtectedRoutes";
+import OrdersScreen from "./screens/OrdersScreen";
+
 function App() {
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-t from-[#FFB8B8] to-[#1E1E1E]">
@@ -27,6 +29,14 @@ function App() {
             element={
               <ProtectedRoutes>
                 <CheckoutScreen />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="/orders"
+            element={
+              <ProtectedRoutes>
+                <OrdersScreen />
               </ProtectedRoutes>
             }
           />

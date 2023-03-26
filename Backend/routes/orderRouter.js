@@ -39,8 +39,8 @@ orderRouter.get(
   isAuth,
   expressAsyncHandler(async (req, res) => {
     try {
-      const order = await Order.findById(req.params.orderId);
-      res.send(order);
+      const orders = await Order.find({ user: req.user._id });
+      res.send(orders);
     } catch (e) {
       console.log(JSON.stringify(e.message));
     }
