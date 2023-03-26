@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState, useReducer, useContext, useEffect } from "react";
 import ProgressBar from "../Components/ProgressBar";
 import { StoreContext } from "../store";
+import { Link, useNavigate } from "react-router-dom";
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -20,6 +21,7 @@ const CheckoutScreen = () => {
   const [orderCreated, setOrderCreated] = useState(false);
   const [error, setError] = useState("");
   const [total, setTotal] = useState(0);
+  const [paymentLink, setPaymentLink] = useState();
 
   const [{ loading }, dispatch] = useReducer(reducer, {
     loading: false,
@@ -29,10 +31,13 @@ const CheckoutScreen = () => {
   const { cart, userInfo } = state;
   const { cartItems, shippingAddress } = cart;
 
+  const navigate = useNavigate();
+
   const createOrderHandler = async () => {
+    let orderId = "";
     try {
       dispatch({ type: "CREATE_REQUEST" });
-      await axios.post(
+      const { data } = await axios.post(
         "/api/orders",
         {
           orderItems: cartItems,
@@ -50,6 +55,7 @@ const CheckoutScreen = () => {
           },
         }
       );
+      orderId = data.order._id;
       ctxDispatch({ type: "CART_CLEAR" });
       dispatch({ type: "CREATE_SUCCESS" });
       setOrderCreated(true);
@@ -58,6 +64,19 @@ const CheckoutScreen = () => {
       setError(e);
       dispatch({ type: "CREATE_FAIL" });
       console.log(e.message);
+    }
+
+    try {
+      const { data } = await axios.get(`/api/orders/${orderId}/payment`, {
+        params: {
+          orderId: orderId,
+          userId: userInfo._id,
+        },
+      });
+      const { init_point } = data;
+      setPaymentLink(init_point);
+    } catch (e) {
+      console.log(e);
     }
   };
 
@@ -122,7 +141,12 @@ const CheckoutScreen = () => {
           </button>
         </>
       ) : (
-        <p className="text-white">Order Created Succesfully</p>
+        <p className="text-white">
+          Order Created Succesfully <br />{" "}
+          <Link className="text-green-500 font-bold" to={paymentLink}>
+            Pay
+          </Link>
+        </p>
       )}
       {error && <p>{error}</p>}
     </div>
