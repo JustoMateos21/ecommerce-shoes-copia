@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SignUpScreen = () => {
   const [username, setUsername] = useState("");
@@ -9,16 +9,19 @@ const SignUpScreen = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
   const signUpHandler = async (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
       try {
-        await Axios.post("/api/users/signup", {
+        await Axios.post("/api/user/signup", {
           username,
           email,
           password,
         });
         console.log("success");
+        navigate("/");
       } catch (e) {
         setError(e.message);
         console.log(e.message);

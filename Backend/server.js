@@ -5,7 +5,7 @@ import seedRouter from "./routes/seedRouter.js";
 import productRouter from "./routes/productsRouter.js";
 import userRouter from "./routes/userRouter.js";
 import orderRouter from "./routes/orderRouter.js";
-
+import path from "path";
 const app = express();
 
 dotenv.config();
@@ -23,8 +23,6 @@ mongoose
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.set("view engine", "index.html");
-
 app.get("/api", (req, res) => {
   res.send("funcionando");
 });
@@ -38,10 +36,8 @@ app.get("*", (req, res) => {
   res.send("not found");
 });
 
-app.use(function (req, res, next) {
-  res
-    .status(404)
-    .render("404_error_template", { title: "Sorry, page not found" });
+app.use((err, req, res, next) => {
+  res.status(500).send({ message: err.message });
 });
 
 const port = process.env.PORT || 5000;

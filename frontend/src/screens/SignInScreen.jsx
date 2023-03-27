@@ -1,4 +1,4 @@
-import Axios from "axios";
+import axios from "axios";
 import React, { useContext, useEffect, useState } from "react";
 import { Link, redirect, useNavigate } from "react-router-dom";
 import { StoreContext } from "../store";
@@ -15,7 +15,7 @@ const SignInScreen = () => {
   const loginHandler = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await Axios.post("api/users/signin", {
+      const { data } = await axios.post("api/user/signin", {
         email,
         password,
       });
