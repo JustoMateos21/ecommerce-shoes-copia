@@ -207,7 +207,7 @@ const ShopScreen = () => {
           </div>
         )}
       </div>
-      <section className="grid  grid-cols-2 h-[80%] gap-3 p-2 pt-10">
+      <section className="grid md:grid-cols-4  grid-cols-2 h-[80%] gap-3 p-2 pt-10">
         {products[0] !== undefined &&
           products.map((p) => (
             <div
