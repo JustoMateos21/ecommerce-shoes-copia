@@ -48,7 +48,7 @@ const ProductScreen = () => {
   return (
     <div className="container pt-14 mx-auto py-4">
       <div className="bg-pink-100 bg-opacity-10 p-4 rounded-md shadow-md">
-        <img className="w-full rounded-md" src={product.image} alt="shoe" />
+        <img className="w-1/4 rounded-md" src={product.image} alt="shoe" />
         <div className="mt-4 flex justify-between items-center">
           <h3 className="text-lg font-medium">{product.name} </h3>
           <div className="">
