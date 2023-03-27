@@ -214,7 +214,7 @@ const ShopScreen = () => {
               key={p.image}
               className="flex h-min bg-[#D9D9D9] flex-col items-center justify-items-center p-8 rounded-md "
             >
-              <Link to={`/product/${p.slug}`}>
+              <Link to={`/product/${p.slug}`} state={{ productid: p._id }}>
                 <img className="object-contain" src={p.image} alt="product" />
               </Link>
               <div className="flex justify-items-center items-center">

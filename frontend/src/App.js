@@ -10,6 +10,7 @@ import SignUpScreen from "./screens/SignUpScreen";
 import SignInScreen from "./screens/SignInScreen";
 import ProtectedRoutes from "./Components/ProtectedRoutes";
 import OrdersScreen from "./screens/OrdersScreen";
+import ProductScreen from "./screens/ProductScreen";
 
 function App() {
   return (
@@ -21,7 +22,9 @@ function App() {
           <Route path="/signup" element={<SignUpScreen />} />
           <Route path="/signin" element={<SignInScreen />} />
           <Route path="/shop" element={<ShopScreen />} />
+
           <Route path="/search" element={<ShopScreen />} />
+          <Route path="/product/:slug" element={<ProductScreen />} />
           <Route path="/cart" element={<CartScreen />} />
           <Route path="/delivery" element={<DeliveryScreen />} />
           <Route
