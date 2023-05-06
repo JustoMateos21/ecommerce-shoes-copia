@@ -53,8 +53,10 @@ const NavBar = () => {
 
   useEffect(() => {
     window.addEventListener("resize", detectSize);
+    windowDimension.width > 768 && setIsMenuOpen(true);
+
     return () => {
-      window.addEventListener("resize", detectSize);
+      window.removeEventListener("resize", detectSize);
     };
   }, [windowDimension.width]);
 
@@ -74,7 +76,9 @@ const NavBar = () => {
             color="#f1f1f1"
             size={25}
           />
-          <p className="text-xl text-gray-100 font-semibold">Ecommerce Shoes</p>
+          <p className="text-xl text-gray-100 font-semibold ">
+            Ecommerce Shoes
+          </p>
           <AiOutlineMenu
             cursor={"pointer"}
             className={"md:hidden"}
@@ -84,35 +88,34 @@ const NavBar = () => {
           />
         </>
       )}
-      {isMenuOpen ||
-        (windowDimension.width > 768 && (
-          <>
-            {links.map((l) => (
-              <Link
-                className="flex md:text-[20px] md:pl-0 md:font-medium pl-10 md:pr-0 pr-10 text-2xl font-semibold  text-[#f1f1f1]"
-                to={`${l.link}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {l.name}
-              </Link>
-            ))}
-            <button
-              className="flex md:p-1 md:text-[20px] md:rounded-md md:bg-slate-400 pl-10 pr-10 md:text-md text-2xl font-semibold w-15 text-[#f1f1f1]"
-              onClick={signOutHandler}
+      {isMenuOpen && (
+        <>
+          {links.map((l) => (
+            <Link
+              className="flex md:text-[20px] md:pl-0 md:font-medium pl-10 md:pr-0 pr-10 text-2xl font-semibold  text-[#f1f1f1]"
+              to={`${l.link}`}
+              onClick={() => setIsMenuOpen(false)}
             >
-              {isLoggedIn ? "Logout" : "Login"}
-            </button>
-            <div className="flex pt-10">
-              <AiOutlineClose
-                color="#f1f1f1"
-                size={30}
-                className={"md:hidden"}
-                cursor={"pointer"}
-                onClick={() => setIsMenuOpen(false)}
-              />
-            </div>
-          </>
-        ))}
+              {l.name}
+            </Link>
+          ))}
+          <button
+            className="flex md:p-1 md:text-[20px] md:rounded-md md:bg-slate-400 pl-10 pr-10 md:text-md text-2xl font-semibold w-15 text-[#f1f1f1]"
+            onClick={signOutHandler}
+          >
+            {isLoggedIn ? "Logout" : "Login"}
+          </button>
+          <div className="flex pt-10">
+            <AiOutlineClose
+              color="#f1f1f1"
+              size={30}
+              className={"md:hidden"}
+              cursor={"pointer"}
+              onClick={() => setIsMenuOpen(false)}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };
